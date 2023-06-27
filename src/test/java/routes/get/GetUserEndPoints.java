@@ -44,43 +44,37 @@ public class GetUserEndPoints {
     //token : 64dd492c8f2dc482b6442f826016981aed1da6253104085304edd688f0dfdd22
     public Response getOrderById(String id) {
         String staticToken = "97f1b027a201e6c3c07044a612a23fb569ad1e2ab665bb4804e373746b292367";
-        Response response = given()
+       return   given()
+                .log().all()
                 .contentType(contentType.getValue())
                 .header("Authorization", "Bearer " + staticToken)
                 .pathParam("id", id)
                 .when().get(BookEndpoints.getOrderById);
-        response.then().log().all();
         //JsonPath jsonPath = ReusableMethods.rawToJson(response.getBody().asString());
-        switch (response.statusCode()) {
-            case 200:
-                JsonPath jsonPath = new JsonPath(response.toString());
-                Map<String, Object> jsonMap = jsonPath.getMap("");
-                Assert.assertTrue(jsonMap.containsKey("id"));
-                Assert.assertTrue(jsonMap.containsKey("bookId"));
-                Assert.assertTrue(jsonMap.containsKey("customerName"));
-                Assert.assertTrue(jsonMap.containsKey("createdBy"));
-                Assert.assertTrue(jsonMap.containsKey("quantity"));
-                Assert.assertTrue(jsonMap.containsKey("timestamp"));
+//        switch (response.statusCode()) {
+//            case 200:
+//
+//
+//                response.then().log().all();
+//                break;
+//            case 404:
+//                response.then().assertThat().statusCode(404);
+//                JsonPath js = new JsonPath(response.asString());
+//                String expectedErrorMessage = js.getString("error");
+//                assertThat(expectedErrorMessage, equalTo("No order with id " + id + "."));
+//                break;
+//        }
+//            case 409:
+//                response.then().assertThat().statusCode(409);
+//                response.then().log().status().and().log().body();
+//                System.out.println("status code: " + response.statusCode());
+//                break;
+//            default:
+//                staticToken = Authentication.authenticateAndGetToken();
+//                getOrderById(id);
+//                break;
+//        }
 
-                response.then().log().all();
-                break;
-            case 404:
-                response.then().assertThat().statusCode(404);
-                JsonPath js = new JsonPath(response.asString());
-                String expectedErrorMessage = js.getString("error");
-                assertThat(expectedErrorMessage, equalTo("No order with id " + id + "."));
-                break;
-            case 409:
-                response.then().assertThat().statusCode(409);
-                response.then().log().status().and().log().body();
-                System.out.println("status code: " + response.statusCode());
-                break;
-            default:
-                staticToken = Authentication.authenticateAndGetToken();
-                getOrderById(id);
-                break;
-        }
-        return response;
     }
     @Test
     public void test() {

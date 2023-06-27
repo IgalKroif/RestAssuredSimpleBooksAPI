@@ -1,4 +1,4 @@
-package routes.get;
+package routes.post;
 
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -17,6 +17,7 @@ public class PostUserEndPoints {
         ContentTypeEnums contentType = ContentTypeEnums.JSON;
         return
         given()
+                .log().body()
                 .body(payload)
                 .header("Authorization", "Bearer " + auth)
                 .contentType(contentType.getValue())

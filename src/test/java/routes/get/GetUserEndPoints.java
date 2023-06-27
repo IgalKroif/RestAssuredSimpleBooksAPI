@@ -29,11 +29,11 @@ public class GetUserEndPoints {
         return given()
                 .when().get(BookEndpoints.getAllBooks);
     }
-    //@Test
+
     //Gets a single book based on id provided
     //@query param accepted between 1 and 6 otherwise
     //@return a message of : "no book with id {id}"
-    public Response getSpecificBookByIdResponse(Integer id) {
+    public Response getSpecificBookByIdResponse(Object id) {
         //Faker faker = new Faker();
        //int randomNumber =  faker.number().numberBetween(1,100);
       return  given().log().all()
@@ -43,7 +43,7 @@ public class GetUserEndPoints {
     //@Test
     //token : 64dd492c8f2dc482b6442f826016981aed1da6253104085304edd688f0dfdd22
     public Response getOrderById(String id) {
-        String staticToken = "747150a46d2b6861879bdb585a8b57ba2ed0767b9bd3370d2c84b5d6f5546276";
+        String staticToken = "97f1b027a201e6c3c07044a612a23fb569ad1e2ab665bb4804e373746b292367";
         Response response = given()
                 .contentType(contentType.getValue())
                 .header("Authorization", "Bearer " + staticToken)

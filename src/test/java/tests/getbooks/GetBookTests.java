@@ -15,9 +15,9 @@ public class GetBookTests {
     String[] expectedBookNames = {"The Russian", "Just as I Am", "The Vanishing Half",
             "The Midnight Library", "Untamed", "Viscount Who Loved Me"};
     String[] expectedBookTypes = {"fiction", "non-fiction"};
-    Boolean[] expectedAvaliability = {true, false};
+    Boolean[] expectedAvailability = {true, false};
     Integer[] expectedId = {1,2,3,4,5,6};
-    GetUserEndPoints getUserEndPoints = new GetUserEndPoints();;
+    GetUserEndPoints getUserEndPoints = new GetUserEndPoints();
     String expectedWelcome = "Welcome to the Simple Books API.";
 
     @Test
@@ -43,7 +43,6 @@ public class GetBookTests {
     @Test
     public void getAllBooksTest() {
 
-
         // TestCase to get a list of all books.
         Response response = getUserEndPoints.getAllBooksResponse();
         response.then().assertThat().statusCode(200).log().body();
@@ -65,7 +64,7 @@ public class GetBookTests {
             Assert.assertTrue(Arrays.asList(expectedBookNames).contains(bookName));
             Assert.assertTrue(Arrays.asList(expectedBookTypes).contains(bookType));
             Assert.assertTrue(Arrays.asList(expectedId).contains(idNum));
-            Assert.assertTrue(Arrays.asList(expectedAvaliability).contains(isAvailable));
+            Assert.assertTrue(Arrays.asList(expectedAvailability).contains(isAvailable));
 
             // Perform any assertions or operations on each book
             System.out.println("Book " + (i + 1) + ": " + bookName + " (" + bookType + ")");
@@ -73,7 +72,6 @@ public class GetBookTests {
     }
     @Test
     public void getSpecificBook() {
-        String[] authors ={"James Patterson and James O. Born"};
         int randomNumBetweenOneAndSix = ReusableMethods.generateRandomNumber();
         Response response = getUserEndPoints.getSpecificBookByIdResponse(randomNumBetweenOneAndSix);
         response.then().statusCode(200)
@@ -88,6 +86,7 @@ public class GetBookTests {
         String isbn = js.getString("isbn");
         Float bookPrice = js.getFloat("price");
         String authorName = js.getString("author");
+
         switch (js.getInt("id")) {
             case 1:
                 String expectedIsbn = "1780899475";
@@ -197,17 +196,6 @@ public class GetBookTests {
                     Assert.assertFalse(isAvailable,"Book is not available");
                 }
                 break;
-
         }
     }
 }
-//{
-//        "id": 1,
-//        "name": "The Russian",
-//        "author": "James Patterson and James O. Born",
-//        "isbn": "1780899475",
-//        "type": "fiction",
-//        "price": 12.98,
-//        "current-stock": 12,
-//        "available": true
-//        }

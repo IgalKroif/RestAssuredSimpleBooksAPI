@@ -1,8 +1,10 @@
 package routes.post;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import payload.userPayload;
 import routes.BookEndpoints;
+import utilities.ContentTypeEnums;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,9 +19,10 @@ import static io.restassured.RestAssured.given;
 
 public class Authentication {
     private static String token;
+    static ContentTypeEnums myContentType = ContentTypeEnums.JSON;
     public static String authenticateAndGetToken() {
         token = given()
-                .contentType("application/json")
+                .contentType(myContentType.getValue())
                 .body(userPayload.AuthPayload)
                 .when()
                 .post(BookEndpoints.authorize)

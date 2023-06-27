@@ -1,11 +1,13 @@
 package routes.get;
 
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import routes.BookEndpoints;
 import routes.post.Authentication;
+import utilities.ContentTypeEnums;
 
 import java.util.Map;
 
@@ -14,15 +16,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GetUserEndPoints {
+    ContentTypeEnums contentType = ContentTypeEnums.JSON;
     //@Test
     // Gets the base url with a message of welcome to simple booksAPI
-    public static Response getStatusResponse() {
+    public Response getStatusResponse() {
         return given()
                 .when().get(BookEndpoints.baseURI);
     }
     //@Test
     //Gets all books present in the API endpoint
-    public static Response getAllBooksResponse() {
+    public Response getAllBooksResponse() {
         return given()
                 .when().get(BookEndpoints.getAllBooks);
     }
@@ -30,18 +33,19 @@ public class GetUserEndPoints {
     //Gets a single book based on id provided
     //@query param accepted between 1 and 6 otherwise
     //@return a message of : "no book with id {id}"
-    public static Response getSpecificBookByIdResponse(Integer id) {
+    public Response getSpecificBookByIdResponse(Integer id) {
         //Faker faker = new Faker();
        //int randomNumber =  faker.number().numberBetween(1,100);
-      return   given().log().all()
+      return  given().log().all()
                 .pathParam("id", id)
                 .when().get(BookEndpoints.getBookById);
     }
     //@Test
     //token : 64dd492c8f2dc482b6442f826016981aed1da6253104085304edd688f0dfdd22
-    public static Response getOrderById(String id) {
+    public Response getOrderById(String id) {
         String staticToken = "747150a46d2b6861879bdb585a8b57ba2ed0767b9bd3370d2c84b5d6f5546276";
         Response response = given()
+                .contentType(contentType.getValue())
                 .header("Authorization", "Bearer " + staticToken)
                 .pathParam("id", id)
                 .when().get(BookEndpoints.getOrderById);

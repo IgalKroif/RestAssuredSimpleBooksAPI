@@ -40,8 +40,6 @@ public class GetUserEndPoints {
                 .pathParam("id", id)
                 .when().get(BookEndpoints.getBookById);
     }
-    //@Test
-    //token : 64dd492c8f2dc482b6442f826016981aed1da6253104085304edd688f0dfdd22
     public Response getOrderById(String id) {
         String staticToken = "97f1b027a201e6c3c07044a612a23fb569ad1e2ab665bb4804e373746b292367";
        return   given()
@@ -50,35 +48,6 @@ public class GetUserEndPoints {
                 .header("Authorization", "Bearer " + staticToken)
                 .pathParam("id", id)
                 .when().get(BookEndpoints.getOrderById);
-        //JsonPath jsonPath = ReusableMethods.rawToJson(response.getBody().asString());
-//        switch (response.statusCode()) {
-//            case 200:
-//
-//
-//                response.then().log().all();
-//                break;
-//            case 404:
-//                response.then().assertThat().statusCode(404);
-//                JsonPath js = new JsonPath(response.asString());
-//                String expectedErrorMessage = js.getString("error");
-//                assertThat(expectedErrorMessage, equalTo("No order with id " + id + "."));
-//                break;
-//        }
-//            case 409:
-//                response.then().assertThat().statusCode(409);
-//                response.then().log().status().and().log().body();
-//                System.out.println("status code: " + response.statusCode());
-//                break;
-//            default:
-//                staticToken = Authentication.authenticateAndGetToken();
-//                getOrderById(id);
-//                break;
-//        }
 
-    }
-    @Test
-    public void test() {
-
-        getOrderById("sadsad");
     }
 }

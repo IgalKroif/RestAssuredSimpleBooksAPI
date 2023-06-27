@@ -18,7 +18,7 @@ import static org.apache.commons.lang3.Validate.isInstanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class OrderBook {
+public class OrderBookTests {
     PojoBookOrder payload = new PojoBookOrder();
     Faker fakeData = new Faker();
     PostUserEndPoints order = new PostUserEndPoints();
@@ -30,7 +30,7 @@ public class OrderBook {
         payload.setCustomerName(fakeData.name().firstName() + " " + fakeData.name().lastName());
         return payload;
     }
-    public Response OrderBook() {
+    public Response orderBookTest() {
         //ORDER A BOOK BY A RANDOM ID BETWEEN 1 AND 6
         Response response = order.orderBook(insertPayload());
         response.then().statusCode(201)
@@ -47,13 +47,13 @@ public class OrderBook {
 
     }
     @Test
-    public void OrderSingleBookTest() {
-         OrderBook();
+    public void orderSingleBookTest() {
+         orderBookTest();
     }
     @Test
-    public void OrderBookAndGetTheOrderTest() {
+    public void orderBookAndGetTheOrderTest() {
         //ORDER A BOOK BY A RANDOM ID BETWEEN 1 AND 6
-        Response response = OrderBook();
+        Response response = orderBookTest();
 
         JsonPath js = new JsonPath(response.asString());
         Boolean isCreated = js.getBoolean("created");
